@@ -7,7 +7,6 @@ import AddWokout from '../components/AddWorkout'
 interface Workout {
   _id: string;
   title: string;
-  // Add other properties as needed
 }
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/workouts"); // Specify the full backend URL
+        const response = await fetch("http://localhost:4000/api/workouts"); 
         const json = await response.json();
         console.log("Received data:", json);
 
@@ -29,21 +28,28 @@ export default function Home() {
     };
 
     fetchWorkouts();
-  }, []);
+  },);
 
   return (
-    <main className="px-40 pt-5 flex">
-      <div className="w-2/3">
+    <main className="px-3 md:px-20 flex-col md:flex">
+      <style>
+        {`
+          html, body {
+            background-color: #dee4e7;
+          }
+        `}
+      </style>
+      <div className="w-full mt-5 md:mt-0 md:fixed md:top-28 md:right-20 md:w-64 md:ml-5 bg-slate-100 rounded-xl p-5 md:h-80 shadow-lg border">
+        <AddWokout/>
+      </div>
+      <div className="w-full md:w-2/3 mt-3 md:mt-24 grid grid-cols-1 md:grid-cols-2">
         {workouts ? (
           workouts.map((workout) => (
-            <WorkoutCard key={workout._id} workout={workout}/>
+            <WorkoutCard key={workout._id} workout={workout} />
           ))
         ) : (
           <p>Loading...</p>
         )}
-      </div>
-      <div className="w-1/3 mt-5 ml-5">
-        <AddWokout/>
       </div>
     </main>
   );
