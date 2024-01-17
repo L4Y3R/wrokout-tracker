@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily:{
-        bungee: ["Bungee Spice", "sans-serif"]
+        bungee: ["Bungee Spice", "sans-serif"],
+        dmsans: ["DM Sans", "sans"]
       }
     },
   },
