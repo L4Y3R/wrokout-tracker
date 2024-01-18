@@ -69,7 +69,7 @@ export default function Home() {
 
       {!user && (
         <div>
-          <span className="flex justify-center items-center mt-64 font-bungee text-5xl"> Welcome to Wrokout Buddy </span>
+          <span className="flex justify-center items-center mt-64 font-bungee text-5xl"> Welcome to Wrokout Tracker </span>
           <br></br>
 
           <span className="flex font-bold md:justify-center items-center"> Please Log In or Sign Up to continue</span>
