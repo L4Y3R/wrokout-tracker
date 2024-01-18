@@ -1,14 +1,22 @@
 import { useState } from "react";
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const AddWorkout = () =>{
-    const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   const [repititions, setRepititions] = useState('');
   const [load, setLoad] = useState('');
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
+  const {user} = useAuthContext()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!user){ 
+      setError('Log in to add a workout')
+      return
+    }
 
     const workout = { title, repititions, load };
 
@@ -16,7 +24,8 @@ const AddWorkout = () =>{
       method: 'POST',
       body: JSON.stringify(workout),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       }
     });
 
@@ -75,7 +84,7 @@ const AddWorkout = () =>{
             </div>
             <br></br>
             <button className="w-full rounded-lg bg-amber-500 h-10 font-bold hover:bg-amber-400 transition-all duration-300 ease-in-out"> Add Workout </button>
-
+            
             {error && <div className="text-red-600"> {error} </div>}
         </form>
     )

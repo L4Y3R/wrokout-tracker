@@ -1,13 +1,22 @@
 import { formatDistanceToNow } from "date-fns";
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const WorkoutCard = ({ workout }) =>{
+    const {user}= useAuthContext()
 
     const handleDelete = async () => {
+        if(!user){
+          return
+        }
+
         const isConfirmed = window.confirm("Are you sure you want to delete this workout?");
     
         if (isConfirmed) {
           const response = await fetch(`http://localhost:4000/api/workouts/${workout._id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            }
           });
     
           const json = await response.json();
